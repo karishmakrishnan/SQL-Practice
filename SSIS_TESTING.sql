@@ -1,0 +1,15 @@
+USE SSISDB;
+GO
+EXEC [catalog].[upgrade_catalog];
+GO
+USE master;
+GO
+DROP DATABASE SSISDB;
+GO
+ALTER DATABASE SSISDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE SSISDB;
+
+--Master DB encryption key for ssis Db encryption
+USE master;
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'StrongPasswordHere';
+GO
